@@ -11,6 +11,8 @@ Serial myPort;
 JSONObject json;
 int value = 0; // will hold arduino data
 
+int[] serialInArray = new int[2];
+
 void setup() {
   size(400, 200);
 
@@ -68,14 +70,20 @@ void serialEvent (Serial myPort) {
   println("serial Event function called");
   // read ASCII string
   String inString = myPort.readStringUntil('\n');
-  
+  println(inString);
   if (inString != null) {
     // take care of whitespace
-    inString = trim(inString);
-    println ("Frame number: " + frameCount + "  Arduino data: " + inString);
+//    inString = trim(inString);
+//    println ("Frame number: " + frameCount + "  Arduino data: " + inString);
+//    println(inString);
+//    int sensors[] = int(split(inString, ','));
     
-    value = int(inString);
-    println("value" + value);
+//    for (int sensorNum = 0; sensorNum < sensors.length; sensorNum++) {
+//      print("Sensor " + sensorNum + ": " + sensors[sensorNum] + "\t");
+//    }
+    
+//    value = int(inString);
+//    println("value" + value);
     
     sb.send( "softpot_info", value );
   }
