@@ -1,22 +1,16 @@
-int softpotPin = A0;
+int softpotPin = A1;
 int softpotValue = 0;
 
-int pressurePin = A1;
+int pressurePin = A2;
 int pressureValue = 0;
 
 void setup() {
-//  pinMode(softpotPin, input);
-//  pinMode(pressurePin, input);
-//  digitalWrite(softpotPin, HIGH);
-//  digitalWrite(pressurePin, HIGH);
   Serial.begin(9600);
 }
 
 void loop() {
-  int softpotReading = analogRead(softpotPin);
-  int pressureReading = analogRead(pressurePin);
-  Serial.print(softpotReading);
+  Serial.print(analogRead(softpotPin));
   Serial.print(',');
-  Serial.println(pressureReading);
-  delay(2500);
+  Serial.println(analogRead(pressurePin));
+  delay(200);
 }
