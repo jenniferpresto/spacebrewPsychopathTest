@@ -1,7 +1,7 @@
 /* 2014 SPRING MFA DT/ COLLAB: SPACEBREW/ CREADED BY SUSAN LIN*/
 // From  Example 38.1 - Sparkfun Thermal Printer Test (COM-10438)
 
-// Print the information from printReceiver.pde
+// Print the information got from printReceiver.pde
 
 #include <SoftwareSerial.h>
 SoftwareSerial Thermal(2, 3);
@@ -35,24 +35,21 @@ void initPrinter(){
 
 }
 void loop(){
-
+  
     if((petting > 0) && (petting <= 5)&&(range != 0)){
       Thermal.println("You Are Calm.");
       range = 0;
       Thermal.println("*************");
-      Thermal.write(10);
     }
     else if(( petting > 5) && (petting <= 12)&&(range != 1)){
       Thermal.println("You Are Getting Anxious.");
       range = 1;
       Thermal.println("*************");
-      Thermal.write(10);
     }
     else if((petting > 12)&&(range != 2)){
       Thermal.println("You Are A Psychopath!");
       range = 2;
       Thermal.println("*************");
-      Thermal.write(10);
     }
     
  /*receive "petting" from printReceiver.pde through spacebrew*/

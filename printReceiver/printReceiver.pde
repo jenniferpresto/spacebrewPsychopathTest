@@ -38,6 +38,9 @@ void setup() {
   myPort.bufferUntil('\n');
 }
 
+void draw(){
+  //Do not never and ever remove this!!!
+}
 
 void onCustomMessage( String name, String type, String value ) {
   if ( type.equals("brainwaves") ) {
