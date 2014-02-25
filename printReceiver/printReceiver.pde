@@ -5,58 +5,49 @@ String server = "sandbox.spacebrew.cc";
 String name = "Print!";
 String description = "receipt printer";
 
+int petting;
+int pressure;
+
 Spacebrew sb;     // Spacebrew connection object
 Serial myPort; // Serial port object 
 
-JSONObject json;  // JSON object that will hold data sent to spacebrew
-
-void setup(){
+void setup() {
   size(100, 100);
   background(255);
-  
-  // initialize json object with name and value attributes 
-  json = new JSONObject();
-  json.setString("name", name);
-  json.setInt("value", value);
-  
+
   // instantiate the spacebrew object
   sb = new Spacebrew( this );
-  
+
   // add each thing you subscribe 
-  sb.addPublish( "graph_me", "graphable", json.toString() );
-  
+  sb.addSubscribe("infromation", "brainwaves");
+
   // connect to spacebrew
   sb.connect(server, name, description );
-  
+
   //conect to arduino
   println(Serial.list()); 
   myPort = new Serial(this, Serial.list()[4], 9600); 
   myPort.bufferUntil('\n');
 }
 
-void draw(){
- if(mouseX = 0){
-   port.write("G");
- }
+void draw() {
+  //  if(mouseX>0){
+  //    myPort.write('S');
+  //    background(0);
+  //  }
 }
 
-void serialEvent () {
+void onCustomMessage( String name, String type, String value ) {
+  if ( type.equals("brainwaves") ) {
+    // parse JSON!
 
-  // read data as an ASCII string:
-  String inString = myPort.readStringUntil('\n');
-
-  if (inString != null) {
-    // trim off whitespace
-    inString = trim(inString);
-    println("Received data from Arduino: " + inString);
-
-    // convert value from string to an integer and add to json
-    value = int(inString); 
-    json.setInt("value", value);
-
-    // publish the value to spacebrew if app is connected to spacebrew
-    if (sb.connected()) {
-      sb.send( "graph_me", json.toString() );
-    }
+    JSONObject m = JSONObject.parse( value );
+    //    remotePoint.set( m.getInt("x"), m.getInt("y"));
+    petting = m.getInt("petting");
+    pressure = m.getInt("pressure");
+    println(petting);
+    //    myPort.write(petting +"," + pressure);
+    myPort.write(petting);
   }
 }
+
