@@ -1,22 +1,34 @@
-int softpotPin = A0;
+/************
+Arduino inputs for Crazy Test:
+
+Attach membrane potentiometer to analog input A1,
+and pressure resistor to analog input A2. I also used
+a 10K resistor with the pressure resistor (but not
+the membrane potentiometer).
+
+Spacebrew, Parsons MFA-DT
+February 25, 2014
+
+Susan Lin, Anthony Marefat, Jennifer Presto
+
+**************/
+
+int softpotPin = A1;
 int softpotValue = 0;
 
-int pressurePin = A1;
+int pressurePin = A2;
 int pressureValue = 0;
 
 void setup() {
-//  pinMode(softpotPin, input);
-//  pinMode(pressurePin, input);
-//  digitalWrite(softpotPin, HIGH);
-//  digitalWrite(pressurePin, HIGH);
   Serial.begin(9600);
 }
 
 void loop() {
-  int softpotReading = analogRead(softpotPin);
-  int pressureReading = analogRead(pressurePin);
-  Serial.print(softpotReading);
+  // We send the information in one line, with each
+  // piece separated by a comma.
+  // We'll parse this on the Processing side.
+  Serial.print(analogRead(softpotPin));
   Serial.print(',');
-  Serial.println(pressureReading);
-  delay(2500);
+  Serial.println(analogRead(pressurePin));
+  delay(200);
 }

@@ -1,3 +1,11 @@
+//2014 SPRING MFA DT COLLAB: SPACEBREW
+//CREATED BY SUSAN LIN
+/* communication between arduino: Serial Call and Response
+  http://arduino.cc/en/Tutorial/SerialCallResponse#.UwzFiXlki0s */
+/* communication between spcebrew: spacebrew_Custom_Object
+https://github.com/robotconscience/spacebrew-JSON-examples/tree/master/processing/spacebrew_custom_object
+*/
+
 import spacebrew.*;
 import processing.serial.*; 
 
@@ -30,12 +38,6 @@ void setup() {
   myPort.bufferUntil('\n');
 }
 
-void draw() {
-  //  if(mouseX>0){
-  //    myPort.write('S');
-  //    background(0);
-  //  }
-}
 
 void onCustomMessage( String name, String type, String value ) {
   if ( type.equals("brainwaves") ) {
@@ -44,9 +46,9 @@ void onCustomMessage( String name, String type, String value ) {
     JSONObject m = JSONObject.parse( value );
     //    remotePoint.set( m.getInt("x"), m.getInt("y"));
     petting = m.getInt("petting");
-    pressure = m.getInt("pressure");
+//    pressure = m.getInt("pressure");
     println(petting);
-    //    myPort.write(petting +"," + pressure);
+//    myPort.write(petting +"," + pressure);
     myPort.write(petting);
   }
 }

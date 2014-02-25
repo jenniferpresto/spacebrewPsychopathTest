@@ -1,9 +1,8 @@
+/* 2014 SPRING MFA DT/ COLLAB: SPACEBREW/ CREADED BY SUSAN LIN*/
+// From  Example 38.1 - Sparkfun Thermal Printer Test (COM-10438)
 
-/*
- Example 38.1 - Sparkfun Thermal Printer Test (COM-10438)
- http://tronixstuff.com/tutorials > chapter 38
- Based on code by Nathan Seidle of Spark Fun Electronics 2011
- */
+// Print the information from printReceiver.pde
+
 #include <SoftwareSerial.h>
 SoftwareSerial Thermal(2, 3);
 int heatTime = 100;
@@ -12,9 +11,7 @@ char printDensity = 15;
 char printBreakTime = 15;
 
 byte petting = 0;
-byte pressure = 0;
 int range = 0;
-boolean finish = false;
 
 void setup() {
   Serial.begin(9600); // for debug info to serial monitor
@@ -40,34 +37,30 @@ void initPrinter(){
 void loop(){
 
     if((petting > 0) && (petting <= 5)&&(range != 0)){
-
       Thermal.println("You Are Calm.");
       range = 0;
-
+      Thermal.println("*************");
+      Thermal.write(10);
     }
     else if(( petting > 5) && (petting <= 12)&&(range != 1)){
-      Thermal.println("You Are Getting Anxious!");
+      Thermal.println("You Are Getting Anxious.");
       range = 1;
+      Thermal.println("*************");
+      Thermal.write(10);
     }
     else if((petting > 12)&&(range != 2)){
       Thermal.println("You Are A Psychopath!");
       range = 2;
+      Thermal.println("*************");
+      Thermal.write(10);
     }
     
-    
+ /*receive "petting" from printReceiver.pde through spacebrew*/
   if(Serial.available() > 0){
 
     petting = Serial.read();
-    //  pressure = Serial.parseInt();
 
-
-    //  Thermal.println("############");
-    //  Thermal.println("");
-    //  Thermal.print("How Quick You Pet: ");
-    //  Thermal.println(petting);
-    //  Thermal.println("");
-    //  delay(300);
-
+/*For debugging*/
 //    Thermal.print("Petting is ");
 //    Thermal.print(petting);
 //    Thermal.print(" and range is ");
