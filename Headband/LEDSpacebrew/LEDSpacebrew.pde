@@ -8,8 +8,8 @@ String server="sandbox.spacebrew.cc";
 String name="Brainulator";
 String description = "It sees into your very soul.";
 
-float speed;
-float pressure;
+int petting;
+int pressure;
 
 int bright = 0; // the value of the photocell we will send over spacebrew
 int r = 0;
@@ -23,7 +23,7 @@ void setup() {
   JSONObject brainWaves = new JSONObject();
 
   // add each thing you publish to
-  spacebrewConnection.addSubscribe( "Brainulator", "brainWaves" );
+  spacebrewConnection.addSubscribe( "Brainulator", "brainwaves" );
 
   // connect!
   spacebrewConnection.connect(server, name, description );
@@ -54,21 +54,23 @@ void onRangeMessage( String name, int value ) {
 }
 
 void onCustomMessage(String name, String type, String value) {
-  if (type.equals("brainWaves")) {
+  if (type.equals("brainwaves")) {
     //parse JSON!
     JSONObject m = JSONObject.parse(value);
-    speed = m.getInt("speed");
+    petting = m.getInt("petting");
     pressure = m.getInt("pressure");
 
-    int rVal = int(map(pressure, 0, 1023, 0, 255));
-    int bVal = int(map(pressure, 0, 1023, 255, 0));
+    int rVal = int(map(pressure, 0, 1023, 100, 0));
+    int bVal = 100-rVal;
+
+println(pressure);
 
     // if value has changed enough then update bar
-    if (rVal != r || bVal != b || speed!=tb) {
-      if(rVal != r){
+    if (rVal != r || bVal != b || petting!=tb) {
+      if (rVal != r) {
         r = rVal;
       }
-      if(bVal != b){
+      if (bVal != b) {
         b = bVal;
       }
       // send message to arduino
