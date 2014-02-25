@@ -5,8 +5,8 @@ Serial port;
 Spacebrew spacebrewConnection;
 
 String server="sandbox.spacebrew.cc";
-String name="Headband";
-String description = "Very description";
+String name="Brainulator";
+String description = "It sees into your very soul.";
 
 float speed;
 float pressure;
@@ -54,7 +54,7 @@ void onRangeMessage( String name, int value ) {
 }
 
 void onCustomMessage(String name, String type, String value) {
-  if (tpye.equals("brainWaves")) {
+  if (type.equals("brainWaves")) {
     //parse JSON!
     JSONObject m = JSONObject.parse(value);
     speed = m.getInt("speed");
