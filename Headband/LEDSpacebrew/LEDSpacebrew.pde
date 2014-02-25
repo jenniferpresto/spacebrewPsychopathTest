@@ -72,9 +72,7 @@ void onCustomMessage(String name, String type, String value) {
         b = bVal;
       }
       // send message to arduino
-      port.write(tb);
-      port.write(r);
-      port.write(b);
+      port.write(r + "," + b + "," + tb);
     }
   }
 }
